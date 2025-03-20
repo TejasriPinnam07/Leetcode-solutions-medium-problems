@@ -1,0 +1,32 @@
+
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* slowptr=head;
+        ListNode*fastptr=head;
+        //we will move the fastptr until it reaches n
+        for(int i=0;i<n;i++){
+            fastptr=fastptr->next;
+        }
+        //now the fastptr is at the nth node
+        //if suppose fastptr is null,
+        // then we need to delete the head
+        //nth node from the last will become head
+
+        //delete head
+        if(fastptr==NULL){
+            return head->next;
+        }
+
+        while(fastptr->next!=NULL){
+            slowptr=slowptr->next;
+            fastptr=fastptr->next;
+        }
+
+        ListNode* deletenode=slowptr->next;
+        slowptr->next=slowptr->next->next;
+        delete deletenode;
+        return head;
+        
+    }
+};
